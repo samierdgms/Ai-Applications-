@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Uygulama Merkezi - Hugging Face AI </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #ff7300;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .upload-card, .result-card {
+            background: #262626;
+            border: 2px solid #ff7300;
+            border-radius: 12px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .upload-card textarea, .upload-card select, .upload-card input {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .upload-card button, .download-btn, .home-btn {
+            padding: 12px 25px;
+            border: none;
+            background: #ff7300;
+            color: black;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .upload-card button:hover, .download-btn:hover, .home-btn:hover {
+            background: #d65f00;
+        }
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #ccc;
+        }
+    </style>
+
+</head>
+<body>
+   <button class="home-btn" onclick="window.location.href='/'">Ana Sayfa</button>
+
+    <h1>AI Uygulama Merkezi - Çeviri Aracı</h1>
+    <div class="container">
+        <div class="upload-card">
+            <h3>Metninizi Girin veya Dosya Yükleyin</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <textarea name="text" placeholder="Çevrilecek metni buraya yazın..."></textarea>
+                <input type="file" name="file" accept=".txt">
+
+                <label for="source_language">Kaynak Dil:</label>
+                <select name="source_language">
+                    <option value="tur_Latn">Türkçe</option>
+                    <option value="eng_Latn">İngilizce</option>
+                    <option value="spa_Latn">İspanyolca</option>
+                    <option value="fra_Latn">Fransızca</option>
+                    <option value="deu_Latn">Almanca</option>
+                    <option value="ita_Latn">İtalyanca</option>
+                    <option value="rus_Cyrl">Rusça</option>
+                    <option value="zho_Hans">Çince</option>
+                    <option value="ara_Arab">Arapça</option>
+                </select>
+
+                <label for="target_language">Hedef Dil:</label>
+                <select name="target_language">
+                    <option value="eng_Latn">İngilizce</option>
+                    <option value="tur_Latn">Türkçe</option>
+                    <option value="spa_Latn">İspanyolca</option>
+                    <option value="fra_Latn">Fransızca</option>
+                    <option value="deu_Latn">Almanca</option>
+                    <option value="ita_Latn">İtalyanca</option>
+                    <option value="rus_Cyrl">Rusça</option>
+                    <option value="zho_Hans">Çince</option>
+                    <option value="ara_Arab">Arapça</option>
+                </select>
+
+                <button type="submit">Çevir</button>
+            </form>
+        </div>
+
+        {% if translated_text %}
+        <div class="result-card">
+            <h3>Çeviri Sonucu</h3>
+            <p>{{ translated_text }}</p>
+            {% if translation_file %}
+                <a href="/uploads/{{ translation_file }}" class="download-btn">İndir</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 AI Uygulama Merkezi - Çeviri Aracı</p>
+    </div>
+</body>
+</html>
